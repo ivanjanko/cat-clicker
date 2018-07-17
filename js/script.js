@@ -1,10 +1,18 @@
 /*jshint esversion: 6 */
 
+var buttList = document.querySelectorAll('.b');
+
+buttList.forEach((button) => {
+    button.addEventListener('click', () => {
+        console.log("Hello!");
+    }, false);
+});
 var image,
     click,
     click2,
     cat1 = "Sima",
     cat2 = "Pera";
+
 
 image = document.querySelector('.image');
 image2 = document.querySelector('.image2');
