@@ -35,6 +35,8 @@ var displayCat = (cat) => {
     document.getElementById('name').innerText = cat.name;
     // insert cat image
     document.getElementById('image').src = cat.image;
+    // update clik text
+    document.querySelector('.clicks').innerHTML = `Number of cat clicks is 0`;
     // add listner on image 
     document.getElementById('image').addEventListener('click', function(){
         cat.clicks++;
