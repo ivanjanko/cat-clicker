@@ -1,42 +1,51 @@
 /*jshint esversion: 6 */
 
-var buttList = document.querySelectorAll('.b');
+// cat names
+var cats = ["Sima", "Pera", "Zuca", "Beli", "Tigar"];
+// cat images
+var images = ['/img/1.jpg', '/img/2.jpg', '/img/3.jpg', '/img/4.jpg', '/img/5.jpg'];
 
-buttList.forEach((button) => {
-    button.addEventListener('click', () => {
-        console.log("Hello!");
-    }, false);
-});
-var image,
-    click,
-    click2,
-    cat1 = "Sima",
-    cat2 = "Pera";
-
-
-image = document.querySelector('.image');
-image2 = document.querySelector('.image2');
-clicks = 0;
-clicks2 = 0;
-document.querySelector('.name1').innerHTML = `Cat ${cat1}`;
-document.querySelector('.name2').innerHTML = `Cat ${cat2}`;
-
-image.addEventListener('click', function(){
-    clicks++;
-    document.querySelector('.clicks').innerHTML = `Number of cat clicks is ${clicks}`;
-}, false);
-
-image2.addEventListener('click', function(){
-    clicks2++;
-    document.querySelector('.clicks2').innerHTML = `Number of cat clicks is ${clicks2}`;
-}, false);
-
-
-
+// cat class
 class Cat {
-    constructor(name) {
+    constructor(name, image) {
         this.name = name;
+        this.image = image;
+        this.clicks = 0;
     }
 }
+// list of buttons from html
+var buttList = document.querySelectorAll('.b');
 
-new Cat("sima");
+// itarate trough button list
+buttList.forEach((button) => {
+    // add listener on button
+    button.addEventListener('click', () => {
+        // create a cat when button presed
+        var cat = new Cat(cats[button.id], images[button.id]);
+        // render cat
+        displayCat(cat);
+    }, false);
+});
+
+// render function
+var displayCat = (cat) => {
+    // make content visible
+    document.querySelector('content').style.display = "block";
+    // insert cat name
+    document.getElementById('name').innerText = cat.name;
+    // insert cat image
+    document.getElementById('image').src = cat.image;
+    // add listner on image 
+    document.getElementById('image').addEventListener('click', function(){
+        cat.clicks++;
+        // update futter text
+        document.querySelector('.clicks').innerHTML = `Number of cat clicks is ${cat.clicks}`;
+    }, false);
+};
+
+
+
+
+
+
+
