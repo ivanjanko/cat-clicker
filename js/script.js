@@ -3,7 +3,7 @@
 // cat names
 var cats = ["Sima", "Pera", "Zuca", "Beli", "Tigar"];
 // cat images
-var images = ['/img/1.jpg', '/img/2.jpg', '/img/3.jpg', '/img/4.jpg', '/img/5.jpg'];
+var images = ['img/1.jpg', 'img/2.jpg', 'img/3.jpg', 'img/4.jpg', 'img/5.jpg'];
 
 // cat class
 class Cat {
