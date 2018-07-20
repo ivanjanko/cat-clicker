@@ -1,10 +1,13 @@
 /*jshint esversion: 6 */
 
 // cat names
-var cats = ["Sima", "Pera", "Zuca", "Beli", "Tigar"];
+var names = ["Sima", "Pera", "Zuca", "Beli", "Tigar"];
 // cat images
 var images = ['img/1.jpg', 'img/2.jpg', 'img/3.jpg', 'img/4.jpg', 'img/5.jpg'];
-
+// cat objects
+var cats = [];
+// activ cat
+var currentCat;
 // cat class
 class Cat {
     constructor(name, image) {
@@ -13,37 +16,53 @@ class Cat {
         this.clicks = 0;
     }
 }
-// list of buttons from html
-var buttList = document.querySelectorAll('.b');
 
-// itarate trough button list
-buttList.forEach((button) => {
-    // add listener on button
-    button.addEventListener('click', () => {
-        // create a cat when button presed
-        var cat = new Cat(cats[button.id], images[button.id]);
-        // render cat
-        displayCat(cat);
-    }, false);
+// create buttons for each cat name add listener and insert in DOM
+names.forEach(catName => createAndInsertButton(catName));
+// create button function
+function createAndInsertButton(name) {
+    var button = document.createElement('button');
+    button.addEventListener('click', function() {
+        getCat(name);
+        displayCat(name);
+    });
+    button.innerHTML = name;
+    var buttons = document.body.querySelector('#buttons');
+    buttons.appendChild(button);
+}
+
+// create cats
+names.forEach(catName => createCat(catName));
+// create a cat function
+function createCat(catName) {
+    var catIndex = names.indexOf(catName);
+    var newCat = new Cat(catName, images[catIndex]);
+    cats.push(newCat);
+}
+
+// set event listener on image element
+document.getElementById('image').addEventListener('click', function(){
+    currentCat.clicks++;
+    // update click text
+    document.querySelector('.clicks').innerHTML = `${currentCat.clicks} cat click`;
 });
 
-// render function
-var displayCat = (cat) => {
+function getCat(catName) {
+    cats.forEach( cat => {
+        if (catName === cat.name) { currentCat = cat; } 
+    });
+}
+
+function displayCat(name) {
+    // insert cat name
+    document.getElementById('name').innerText = currentCat.name;
+    // insert cat image
+    document.getElementById('image').src = currentCat.image;
+    // update clik text
+    document.querySelector('.clicks').innerHTML = `${currentCat.clicks} cat clicks`;
     // make content visible
     document.querySelector('content').style.display = "block";
-    // insert cat name
-    document.getElementById('name').innerText = cat.name;
-    // insert cat image
-    document.getElementById('image').src = cat.image;
-    // update clik text
-    document.querySelector('.clicks').innerHTML = `Number of cat clicks is 0`;
-    // add listner on image 
-    document.getElementById('image').addEventListener('click', function(){
-        cat.clicks++;
-        // update futter text
-        document.querySelector('.clicks').innerHTML = `Number of cat clicks is ${cat.clicks}`;
-    }, false);
-};
+}
 
 
 
